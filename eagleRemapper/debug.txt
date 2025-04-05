@@ -1,0 +1,18 @@
+Invalid ID: LODipad1_las
+Invalid ID: WTFgrge_09
+Invalid ID: petrolsign
+Invalid ID: railtraxstraightss
+Invalid ID: pw_details
+Notice: skipping IDE object due to invalid file: htl_fan_rotate_nt, - ,,Source file does not exist: in/resources/htl_fan_rotate_nt.col
+Notice: skipping IDE object due to invalid file: htl_fan_static_nt, - ,,Source file does not exist: in/resources/htl_fan_static_nt.col
+Notice: skipping IDE object due to invalid file: lod_fix_ne_01, - ,,Source file does not exist: in/resources/lod_fix_ne_01.col
+Notice: skipping IDE object due to invalid file: bmxparkLOD, - ,,Source file does not exist: in/resources/bmxparkLOD.col
+Notice: skipping IDE object due to invalid file: LODhfctory, - ,,Source file does not exist: in/resources/LODhfctory.col
+Notice: skipping IDE object due to invalid file: loddpartfix_01, - ,,Source file does not exist: in/resources/loddpartfix_01.col
+Notice: skipping IDE object due to invalid file: loddpartfix_02, - ,,Source file does not exist: in/resources/loddpartfix_02.col
+Notice: skipping IDE object due to invalid file: loddpartfix_03, - ,,Source file does not exist: in/resources/loddpartfix_03.col
+Notice: skipping IDE object due to invalid file: lodabol, - ,,Source file does not exist: in/resources/lodabol.col
+Notice: skipping IDE object due to invalid file: lodervatory_temp, - ,,Source file does not exist: in/resources/lodervatory_temp.col
+Notice: skipping IDE object due to invalid file: LODdamm1, - ,,Source file does not exist: in/resources/LODdamm1.col
+Notice: skipping IDE object due to invalid file: LODdamm2, - ,,Source file does not exist: in/resources/LODdamm2.col
+Notice: skipping IDE object due to invalid file: LODdge_liftweight, - ,,Source file does not exist: in/resources/LODdge_liftweight.col
