@@ -113,10 +113,45 @@ function prepMetaFile(path)
     table.insert(entries,"blank")
     table.insert(entries,metaEntries[2])
     table.insert(entries,"blank")
-    table.insert(entries,"blank")
 
     if fileExists('in/data/water.dat') then
         copyFile('in/data/water.dat', 'out/water.dat',"Water",'water.dat')
+    end
+
+    if interiorValid then
+        table.insert(entries,                {
+            tag = "file",
+            attributes = {
+                src  = 'interiors.map',
+                type = "client",
+            }})
+
+        table.insert(entries,"blank")
+    end
+
+    if IMGSupport then
+        table.insert(entries,                {
+            tag = "file",
+            attributes = {
+            src  = 'imgs/dff.img',
+            type = "client",
+        }})
+
+        table.insert(entries,                {
+            tag = "file",
+            attributes = {
+            src  = 'imgs/col.img',
+            type = "client",
+        }})
+
+        table.insert(entries,                {
+            tag = "file",
+            attributes = {
+            src  = 'imgs/txd.img',
+            type = "client",
+        }})
+
+        table.insert(entries,"blank")
     end
 
     for _,index in ipairs(metaListOrder) do

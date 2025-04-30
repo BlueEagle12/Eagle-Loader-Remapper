@@ -139,42 +139,67 @@ metaList['Collisons'] = {}
 metaList['Maps'] = {}
 metaList['Definitions'] = {}
 
-function copyFile(srcPath, dstPath,type,actualpath,dontCopy)
+
+function getFileNameAndExtension(path)
+    return path:match("([^/\\]+)%.([^%.\\/]+)$")
+end
+
+function getContent (file,imgFile)
+    if imgFile then
+        return imgFile
+    else
+        local size = fileGetSize(file)
+        local content = fileRead(file, size)
+        fileClose(file)
+        return content
+    end
+end
+
+
+
+function copyFile(srcPath, dstPath,type,actualpath,dontCopy,ignoreMeta)
     -- 1. Check if source file actually exists inside the resource
 
+    local sName,ext = getFileNameAndExtension(actualpath)
+    local nameExt = string.lower(sName..'.'..ext)
+
+    local fileValid = globalIMGFiles[nameExt] or fileExists(srcPath)
+
     if dontCopy then
-        if fileExists(srcPath) then
+        if fileValid then
             return true
         else
             return false
         end
     end
 
-    if not fileExists(srcPath) then
-        return false, "Source file does not exist: " .. srcPath
+    if not fileValid then
+        return false, "Source file does not exist: " .. nameExt
     end
 
     -- 2. Open and read the entire source
-
+    
     if fileExists(dstPath) then
         if type then 
-            metaList[type][actualpath] = true
+            if not ignoreMeta then
+                metaList[type][actualpath] = true
+            end
             return true
         end
     end
 
-    local inFile = fileOpen(srcPath)
+    local inFile = globalIMGFiles[nameExt] or fileOpen(srcPath)
     if not inFile then
-        return false, "Failed to open source: " .. srcPath
+        return false, "Failed to open source: " .. nameExt
     end
 
-    if type then 
-        metaList[type][actualpath] = true
+    if not ignoreMeta then
+        if type then 
+            metaList[type][actualpath] = true
+        end
     end
 
-    local size = fileGetSize(inFile)
-    local content = fileRead(inFile, size)
-    fileClose(inFile)
+    local content = getContent(inFile,globalIMGFiles[nameExt])
 
     -- 3. Create/write the destination file
     local outFile = fileCreate(dstPath)

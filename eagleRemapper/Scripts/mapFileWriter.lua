@@ -20,12 +20,12 @@ function writeInitalMap(mapPath,shortName)
 	end
 end
 
-mapFormat = {'id','posX','posY','posZ','rotX','rotY','rotZ','lodParent','uniqueID','lodParentID'}
+mapFormat = {'id','posX','posY','posZ','rotX','rotY','rotZ','lodParent','uniqueID','lodParentID','interior'}
 
-function formatMap (type,id,x,y,z,xr,yr,zr,lodParent,unqiueID,lodParentID)
+function formatMap (type,id,x,y,z,xr,yr,zr,lodParent,unqiueID,lodParentID,interior)
 	local Out = {}
 	local Out2 = {}
-	local In = {id,x,y,z,xr,yr,zr,lodParent or "",(unqiueID or 0) > 0 and unqiueID or "",lodParentID or ""}
+	local In = {id,x,y,z,xr,yr,zr,lodParent or "",(unqiueID or 0) > 0 and unqiueID or "",lodParentID or "",(tonumber((interior or 0))> 0 and interior or "")}
 
 	for i,v in ipairs(In) do
 		if not(v == "") then
@@ -55,7 +55,7 @@ end
 function writeMapFile(objects, mapPath,short)
 
 
-    for _, obj in ipairs(objects) do
+    for _, obj in ipairs(objects or {}) do
 
         -- We'll build a single line like:
         --   <building id="apairprtbits01" model="8585" posX="-1226.50781" posY="-994.60938" ... ></building>
@@ -83,7 +83,8 @@ function writeMapFile(objects, mapPath,short)
 				obj.rotationEuler.x, obj.rotationEuler.y, obj.rotationEuler.z,
 				obj.lodParent,
 				obj.uniqueID,
-				obj.lodParentID
+				obj.lodParentID,
+				obj.interior
 			)
 
 		else

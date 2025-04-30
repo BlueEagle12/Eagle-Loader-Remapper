@@ -53,20 +53,19 @@ local function parseGTAData()
             }
 
             ----------------------------------------------------------------
-            -- If it's an IDE or IPL line, parse the path and also store 
+            -- If it's an IDE, IMG or IPL line, parse the path and also store 
             -- the short name (base name without extension).
             ----------------------------------------------------------------
-            if cmd == "IDE" or cmd == "IPL" then
+            if cmd == "IDE" or cmd == "IPL" or cmd == "IMG" then
                 -- Usually the path is in tokens[1] 
                 -- (assuming the line is like "IDE data\maps\LA\lae2.IDE").
                 local path = tokens[1] or ""
                 entry.path = path
 
-                -- Derive shortName by removing directories and the .IDE/.IPL extension
+                -- Derive shortName by removing directories and the .IDE/.IPL/.IMG extension
                 entry.shortName = getBaseNameNoExt(path)
 				
 				entry.path = path:gsub("\\", "/")
-				
 				
             end
 
@@ -87,6 +86,10 @@ local function parseGTAData()
     -- Print them out
 
     for _, e in ipairs(datEntries) do
+
+        if e.command == "IMG" then
+            local imgFiles = parseIMGFile("in/"..e.path,e.shortName)
+        end
 
         if e.command == "IDE" then
             local defs = parseIDEFile("in/"..e.path,e.shortName)
@@ -112,16 +115,17 @@ local function parseGTAData()
 				local defs = parseIDEFile("in/"..e.path,e.shortName)
                 writeDefinition(defs,"out/zones/"..e.shortName.."/"..e.shortName..".definition",e.shortName)
 			end
-			
-            prepMetaFile('out/meta.xml')
-            
-            writeZoneFile()
-            writeDebugFile()
         else
             outputDebugString(("[GTA.DAT] %s => tokens=[%s]")
                 :format(e.command, table.concat(e.tokens, ", ")))
         end
     end
+
+    prepMetaFile('out/meta.xml')
+    writeZoneFile()
+    writeDebugFile()
+    writeInteriorFile()
+
 
     return datEntries
 end
